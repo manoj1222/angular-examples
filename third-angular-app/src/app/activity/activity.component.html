@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Bootstrap Example</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Users</h2>            
+  <table class="table table-striped" *ngIf="activities.length > 0">
+    <thead>
+      <tr>
+        <th>ID</th>
+        <th>Title</th>
+        <th>Due Date</th>
+        <th>Status</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let activity of activities">
+        <td>{{activity.id}}</td>
+        <td>{{activity.title}}</td>
+        <td>{{activity.dueDate}}</td>
+        <td><div [ngSwitch]="activity.status">
+        <span *ngSwitchCase="0">Not Completed</span>
+        <span *ngSwitchCase="1">Completed</span>
+        <span *ngSwitchDefault>NA</span>
+        </div></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</body>
+</html>
+
