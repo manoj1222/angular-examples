@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from './User';
+import { Observable } from 'rxjs';
+import { timeout, timeoutWith } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -13,16 +15,18 @@ export class RegistrationService {
     return this.httpClient.post("http://localhost:8080/userDetails/register", user, {responseType: 'text' as 'json'});
   }
 
-  getAllUsers(): any {
-    return this.httpClient.get("http://localhost:8080/userDetails/allUsers");
+  getAllUsers(): Observable<User[]> {
+    return this.httpClient.get<User[]>("http://localhost:8080/userDetails/allUsers");
   }
 
   getUserByEmail(email: string): any {
-    return this.httpClient.get("http://localhost:8080/userDetails/searchByEmail/"+email);
+    return this.httpClient.get("http://localhost:8080/userDetails/searchByEmail/"+email).pipe(
+      timeout(1000)
+    );
   }
 
   deleteUserById(id: number) {
-    return this.httpClient.delete("http://localhost:8080/userDetails/deleteUser/"+id);
+    return this.httpClient.delete<User>("http://localhost:8080/userDetails/deleteUser/"+id);
   }
 
 }
